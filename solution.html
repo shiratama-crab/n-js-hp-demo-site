@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>【デモ】ソリューションサービス｜株式会社西日本情報システム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1747b3;
+  --blue-deep:#0c2a72;
+  --blue-soft:#e9f0fb;
+  --ink:#16203a;
+  --muted:#5b6680;
+  --line:#dbe3f0;
+  --white:#ffffff;
+  --head:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+  --body:"Noto Sans JP",sans-serif;
+  --w:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid #f2b705;outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+
+/* デモ表示帯 */
+.demo-bar{background:#fff7d6;color:#6b5200;font-size:12px;text-align:center;padding:6px 16px;border-bottom:1px solid #f0e2a6}
+
+/* ヘッダー */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:19px;letter-spacing:.04em}
+.logo-mark{width:36px;height:36px;object-fit:contain;flex-shrink:0}
+.logo small{font-size:12px;margin-right:4px;font-weight:700}
+nav ul{display:flex;gap:4px;list-style:none}
+nav a{display:block;padding:10px 16px;font-size:14px;font-weight:500;border-radius:6px}
+nav a:hover,nav a[aria-current]{background:var(--blue-soft);color:var(--blue)}
+nav .nav-contact{background:var(--blue);color:#fff;margin-left:8px}
+nav .nav-contact:hover{background:var(--blue-deep);color:#fff}
+.menu-btn{display:none;white-space:nowrap;flex-shrink:0;background:none;border:1px solid var(--line);border-radius:6px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+
+/* ボタン */
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 30px;border-radius:999px;font-size:14px;font-weight:700;transition:background .2s}
+.btn-fill{background:var(--blue);color:#fff}
+.btn-fill:hover{background:var(--blue-deep)}
+.btn-line{border:1.5px solid var(--blue);color:var(--blue);background:#fff}
+.btn-line:hover{background:var(--blue-soft)}
+.btn i{font-style:normal;transition:transform .2s}
+.btn:hover i{transform:translateX(4px)}
+
+/* ページ見出し */
+.page-head{background:linear-gradient(120deg,var(--blue-deep),var(--blue));color:#fff;padding:56px 0 48px;position:relative;overflow:hidden}
+.page-head::after{content:"";position:absolute;right:-80px;top:0;bottom:0;width:45%;background:rgba(255,255,255,.06);clip-path:polygon(30% 0,100% 0,100% 100%,0 100%)}
+.crumb{font-size:12px;opacity:.8}
+.crumb a:hover{text-decoration:underline}
+.page-head .sec-en{color:#bcd0f5;margin-top:20px}
+.page-head h1{font-family:var(--head);font-weight:700;font-size:34px;letter-spacing:.06em;line-height:1.5}
+
+/* ページ内ナビ */
+.anchor-nav{border-bottom:1px solid var(--line);background:#fff}
+.anchor-nav ul{display:flex;flex-wrap:wrap;gap:6px 8px;list-style:none;padding:14px 0}
+.anchor-nav a{display:block;font-size:13px;padding:5px 14px;border-radius:999px;background:var(--blue-soft);color:var(--blue-deep)}
+.anchor-nav a:hover{background:var(--blue);color:#fff}
+
+/* セクション共通 */
+section{padding:80px 0;scroll-margin-top:72px}
+.sec-en{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.12em}
+.sec-title{font-family:var(--head);font-weight:700;font-size:28px;letter-spacing:.06em;margin-top:4px;line-height:1.5}
+.alt{background:#f7f9fd}
+.sub-title{font-size:18px;font-weight:700;margin:48px 0 18px;padding-left:14px;border-left:4px solid var(--blue);line-height:1.5}
+
+/* 導入 */
+.intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 48px}
+.intro p{max-width:44em;font-size:16px;line-height:2}
+
+/* 再構築ソリューション */
+.rebuild{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;margin-top:28px}
+.rebuild p{line-height:2}
+.rebuild figure{background:#fff;border:1px solid #e3eaf6;border-radius:12px;padding:20px}
+.rebuild figure img{width:100%;max-width:380px;height:auto;margin:0 auto}
+.rebuild figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.feat{background:#fff;border:1px solid #e3eaf6;border-radius:12px;padding:24px 26px;display:flex;gap:18px}
+.feat-num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-family:var(--head);font-weight:900;display:grid;place-items:center;font-size:15px}
+.feat h4{font-size:16px;font-weight:700;line-height:1.6}
+.feat p{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.9}
+.feat small{display:block;font-size:12px;margin-top:4px}
+
+.flow{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e3eaf6;border-radius:12px;overflow:hidden;font-size:14px}
+.flow th,.flow td{padding:16px 22px;border-bottom:1px solid #e3eaf6;text-align:left;vertical-align:top}
+.flow tr:last-child th,.flow tr:last-child td{border-bottom:none}
+.flow th{width:200px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;white-space:nowrap}
+.flow th span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;margin-right:10px}
+
+/* WEBシステム開発 */
+.web{display:flex;gap:28px;align-items:flex-start;background:#fff;border:1px solid #e3eaf6;border-radius:12px;padding:32px 36px;margin-top:28px}
+.web svg{flex-shrink:0;width:56px;height:56px;stroke:var(--blue);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.web p{line-height:2}
+.kw{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;list-style:none}
+.kw li{font-size:13px;font-weight:700;padding:4px 14px;border-radius:999px;background:var(--blue-soft);color:var(--blue-deep)}
+
+/* 資料一覧 */
+.docs{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}
+.docs a{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e3eaf6;border-radius:12px;padding:20px 24px;font-weight:700;font-size:14px;transition:border-color .2s}
+.docs a:hover{border-color:var(--blue);color:var(--blue)}
+.docs .pdf{flex-shrink:0;font-size:11px;font-weight:700;color:#fff;background:#c8372d;border-radius:4px;padding:2px 8px}
+
+/* お問い合わせ帯 */
+.cta{background:var(--blue-deep);color:#fff;text-align:center;padding:64px 0}
+.cta h2{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.06em}
+.cta p{opacity:.85;margin:8px 0 26px;font-size:14px}
+.cta .btn{background:#fff;color:var(--blue-deep)}
+.cta .btn:hover{background:var(--blue-soft)}
+
+/* フッター */
+footer{background:#f6f8fc;padding:64px 0 0;font-size:13px}
+.foot-in{display:grid;grid-template-columns:1.4fr 2.6fr 210px;gap:40px}
+.foot-co .logo{font-size:17px}
+.bases{margin-top:18px;list-style:none;color:var(--muted);line-height:1.7}
+.bases li{margin-bottom:8px}
+.bases b{color:var(--ink);font-weight:700;margin-right:6px}
+.foot-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.foot-nav h4{color:var(--blue);font-size:13px;margin-bottom:10px}
+.foot-nav ul{list-style:none}
+.foot-nav li a{display:block;padding:3px 0;color:var(--muted)}
+.foot-nav li a:hover{color:var(--blue)}
+.foot-cta{background:var(--blue-deep);color:#fff;border-radius:10px;padding:26px 18px;text-align:center;align-self:start;font-weight:700;line-height:1.7}
+.foot-cta svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.6;margin:10px auto}
+.foot-cta:hover{background:var(--blue)}
+.copy{border-top:1px solid var(--line);margin-top:48px;padding:18px 0;text-align:center;color:var(--muted);font-size:12px}
+
+/* レスポンシブ */
+@media (max-width:960px){
+  nav{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 16px 16px}
+  nav.open{display:block}
+  nav ul{flex-direction:column}
+  nav .nav-contact{margin:8px 0 0;text-align:center}
+  .menu-btn{display:block}
+  .rebuild{grid-template-columns:1fr}
+  .foot-in{grid-template-columns:1fr}
+  .foot-nav{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  section{padding:56px 0}
+  .page-head h1{font-size:27px}
+  .sec-title{font-size:24px}
+  .intro p{font-size:15px}
+  .feat-grid,.docs{grid-template-columns:1fr}
+  .feat{padding:20px}
+  .flow th,.flow td{display:block;width:auto;padding:12px 16px}
+  .flow th{border-bottom:none}
+  .web{flex-direction:column;padding:24px 20px}
+  .logo{font-size:15px;gap:6px}
+  .logo small{font-size:10px}
+  .logo-mark{width:28px;height:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">これはリニューアル検討用のデモページです（公式サイトではありません）</div>
+
+<header>
+  <div class="wrap head-in">
+    <a href="index.html" class="logo" aria-label="トップへ">
+      <img class="logo-mark" src="img/common/logo.webp" alt="" width="36" height="36">
+      <span><small>株式会社</small>西日本情報システム</span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav id="gnav">
+      <ul>
+        <li><a href="products.html" aria-current="page">ソリューション・製品</a></li>
+        <li><a href="company.html">会社情報</a></li>
+        <li><a href="index.html#news">ニュース</a></li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="#contact" class="nav-contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">ホーム</a> ／ <a href="products.html">ソリューション・製品</a> ／ ソリューションサービス</div>
+      <div class="sec-en">SOLUTION SERVICE</div>
+      <h1>ソリューションサービス</h1>
+    </div>
+  </div>
+
+  <div class="anchor-nav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#rebuild">基幹システム 再構築ソリューション</a></li>
+        <li><a href="#migration">レガシーマイグレーション作業一覧</a></li>
+        <li><a href="#web">WEBシステム開発ソリューション</a></li>
+        <li><a href="#docs">資料一覧</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 導入 -->
+  <section>
+    <div class="wrap intro">
+      <p>西日本情報システムは、お客様の抱える問題や課題を解決するために、長年蓄積した幅広い業務知識、ノウハウ、技術を駆使して、お客様の立場に立った最適なシステム開発を支援するサービスを提供しています。</p>
+      <a href="works.html" class="btn btn-line">開発実績はこちら <i>→</i></a>
+    </div>
+  </section>
+
+  <!-- 基幹システム 再構築ソリューション -->
+  <section id="rebuild" class="alt">
+    <div class="wrap">
+      <div class="sec-en">REBUILD</div>
+      <h2 class="sec-title">基幹システム 再構築ソリューション</h2>
+      <div class="rebuild">
+        <p>現行の基幹システムが抱える問題や課題に対して、自社の強みを最大限に生かすスクラッチ開発、業務統一や開発効率向上のためのパッケージ利用、現行資産を最大限に活用するレガシーマイグレーション、それらを組み合わせたものなど、お客様にとって最適なソリューションをご提供します。</p>
+        <figure>
+          <img src="img/solution/img_solution.png" alt="基幹システムの画面イメージ。生産管理・取引先管理・原価会計管理・受注販売管理・在庫物流管理・資材購買管理を中心に、本社・国内工場・海外工場・営業拠点・販社・業務委託先・サプライヤーがつながる図" width="640" height="629">
+          <figcaption>画面イメージ</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="sub-title">特徴</h3>
+      <div class="feat-grid">
+        <div class="feat">
+          <span class="feat-num">01</span>
+          <div><h4>お客様の課題第一</h4><p>経験豊富なSEがお客様の課題とニーズを的確に把握して、解決方法を一緒に考えます。</p></div>
+        </div>
+        <div class="feat">
+          <span class="feat-num">02</span>
+          <div><h4>コストパフォーマンス</h4><p>開発費、構築費、ライセンス料、保守料など全体コストを抑えた、末長く使えるシステムを提案します。</p></div>
+        </div>
+        <div class="feat">
+          <span class="feat-num">03</span>
+          <div><h4>ユーザインタフェース重視</h4><p>クラウド運用を見通したWebシステムおよび操作性、表現力の高いリッチクライアントツールを使用して構築します。</p></div>
+        </div>
+        <div class="feat">
+          <span class="feat-num">04</span>
+          <div><h4>メインフレーム、オフコンからのマイグレーションも対応</h4><p>COBOLなどの稼働資産をそのまま活用するマイグレーションも対応します。<small>※詳細は<a href="#migration" style="color:var(--blue);text-decoration:underline">レガシーマイグレーション作業一覧</a>をご覧ください</small></p></div>
+        </div>
+      </div>
+
+      <h3 class="sub-title" id="migration" style="scroll-margin-top:96px">レガシーマイグレーション作業一覧</h3>
+      <table class="flow">
+        <tr><th><span>1</span>計画</th><td>資産分析・サンプル移行・移行計画</td></tr>
+        <tr><th><span>2</span>設計</th><td>移行方式設計、運用設計、移行ツール設計、移行ツール作成</td></tr>
+        <tr><th><span>3</span>移行作業</th><td>パネル移行、プロシジャ移行、バッチ移行、対話移行、帳票移行、ファイル移行</td></tr>
+        <tr><th><span>4</span>教育・引継ぎ</th><td>教育・引継ぎ</td></tr>
+        <tr><th><span>5</span>環境構築</th><td>テスト機環境構築、本番環境構築、環境構築資料作成</td></tr>
+        <tr><th><span>6</span>プロジェクト管理</th><td>進捗管理、懸案管理等各工程のフォロー</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- WEBシステム開発ソリューション -->
+  <section id="web">
+    <div class="wrap">
+      <div class="sec-en">WEB SYSTEM</div>
+      <h2 class="sec-title">WEBシステム開発ソリューション</h2>
+      <div class="web">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="8" width="38" height="28" rx="3"/><path d="M5 15h38M10 11.5h.01M14 11.5h.01M18 41h12M24 36v5"/><path d="M14 22h10M14 28h20"/></svg>
+        <div>
+          <p>WEBシステムを効率的に操作・運用するために「快適な画面操作性」「アプリケーション安定性」「開発生産性」を「Biz/Browser」を中核として、ソリューションサービスを提供いたします。</p>
+          <ul class="kw">
+            <li>快適な画面操作性</li>
+            <li>アプリケーション安定性</li>
+            <li>開発生産性</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 資料一覧 -->
+  <section id="docs" class="alt">
+    <div class="wrap">
+      <div class="sec-en">DOCUMENTS</div>
+      <h2 class="sec-title">資料一覧</h2>
+      <ul class="docs">
+        <li><a href="https://www.n-js.co.jp/solution/documents/0918kikansystemA4.pdf" target="_blank" rel="noopener"><span class="pdf">PDF</span>基幹ソリューションの再構築ソリューション</a></li>
+        <li><a href="https://www.n-js.co.jp/solution/pdf/opst_000.pdf" target="_blank" rel="noopener"><span class="pdf">PDF</span>Success Story UMG ABS株式会社</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div class="wrap">
+      <h2>ソリューションサービスについてのお問い合わせ</h2>
+      <p>システムの課題やご要望について、お気軽にご相談ください。</p>
+      <a href="#contact" class="btn">お問い合わせ・資料請求 <i>→</i></a>
+    </div>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="wrap foot-in">
+    <div class="foot-co">
+      <div class="logo"><img class="logo-mark" src="img/common/logo.webp" alt="" width="36" height="36"><span><small>株式会社</small>西日本情報システム</span></div>
+      <ul class="bases">
+        <li><b>東京本社</b>東京都品川区南大井6-19-6<br>TEL 03-5753-7555</li>
+        <li><b>西部本社</b>山口県山口市佐山産業団地南1200-13<br>TEL 083-988-0240</li>
+        <li><b>支店</b>関西／福岡／北陸</li>
+      </ul>
+    </div>
+    <div class="foot-nav">
+      <div><h4>ソリューション・製品</h4><ul><li><a href="solution.html">ソリューションサービス</a></li><li><a href="works.html">開発実績</a></li><li><a href="products.html#package">パッケージ製品</a></li></ul></div>
+      <div><h4>会社情報</h4><ul><li><a href="company.html#profile">会社概要</a></li><li><a href="company.html#bases">拠点一覧</a></li><li><a href="company.html#related">関連会社</a></li><li><a href="https://www.n-js.co.jp/privacy/" target="_blank" rel="noopener">個人情報の取扱い</a></li></ul></div>
+      <div><h4>ニュース</h4><ul><li><a href="index.html#news">お知らせ</a></li></ul></div>
+      <div><h4>採用情報</h4><ul><li><a href="recruit.html#fresh">新卒採用</a></li><li><a href="recruit.html#career">キャリア採用</a></li></ul></div>
+    </div>
+    <a href="#" class="foot-cta">お問い合わせ<br>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="7" width="24" height="18" rx="2"/><path d="M4 9l12 9 12-9"/></svg><br>
+      お問い合わせ・資料請求へ</a>
+  </div>
+  <div class="copy">© 2026 Nishinippon Information System Co., Ltd.（デモ）</div>
+</footer>
+
+<script>
+const btn=document.querySelector('.menu-btn'),nav=document.getElementById('gnav');
+btn.addEventListener('click',()=>{const o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');btn.setAttribute('aria-expanded',false)}));
+</script>
+</body>
+</html>

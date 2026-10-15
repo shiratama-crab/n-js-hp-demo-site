@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>【デモ】採用情報｜株式会社西日本情報システム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1747b3;
+  --blue-deep:#0c2a72;
+  --blue-soft:#e9f0fb;
+  --ink:#16203a;
+  --muted:#5b6680;
+  --line:#dbe3f0;
+  --white:#ffffff;
+  --head:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+  --body:"Noto Sans JP",sans-serif;
+  --w:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid #f2b705;outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+
+/* デモ表示帯 */
+.demo-bar{background:#fff7d6;color:#6b5200;font-size:12px;text-align:center;padding:6px 16px;border-bottom:1px solid #f0e2a6}
+
+/* ヘッダー */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:19px;letter-spacing:.04em}
+.logo-mark{width:36px;height:36px;object-fit:contain;flex-shrink:0}
+.logo small{font-size:12px;margin-right:4px;font-weight:700}
+nav ul{display:flex;gap:4px;list-style:none}
+nav a{display:block;padding:10px 16px;font-size:14px;font-weight:500;border-radius:6px}
+nav a:hover,nav a[aria-current]{background:var(--blue-soft);color:var(--blue)}
+nav .nav-contact{background:var(--blue);color:#fff;margin-left:8px}
+nav .nav-contact:hover{background:var(--blue-deep);color:#fff}
+.menu-btn{display:none;white-space:nowrap;flex-shrink:0;background:none;border:1px solid var(--line);border-radius:6px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+
+/* ボタン */
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 30px;border-radius:999px;font-size:14px;font-weight:700;transition:background .2s}
+.btn-fill{background:var(--blue);color:#fff}
+.btn-fill:hover{background:var(--blue-deep)}
+.btn-line{border:1.5px solid var(--blue);color:var(--blue);background:#fff}
+.btn-line:hover{background:var(--blue-soft)}
+.btn i{font-style:normal;transition:transform .2s}
+.btn:hover i{transform:translateX(4px)}
+
+/* ページ見出し（写真つき） */
+.page-head{background:linear-gradient(120deg,var(--blue-deep),var(--blue));color:#fff;position:relative;overflow:hidden}
+.page-head-in{position:relative;z-index:2;padding:56px 0 52px;max-width:52%}
+.crumb{font-size:12px;opacity:.8}
+.crumb a:hover{text-decoration:underline}
+.page-head .sec-en{color:#bcd0f5;margin-top:20px}
+.page-head h1{font-family:var(--head);font-weight:700;font-size:34px;letter-spacing:.06em;line-height:1.5}
+.catch{margin-top:18px;font-family:var(--head);font-weight:700;font-size:20px;line-height:1.6}
+.catch small{display:block;font-family:var(--body);font-size:13px;font-weight:500;letter-spacing:.08em;opacity:.75}
+.page-head-photo{position:absolute;top:0;right:0;bottom:0;width:50%;clip-path:polygon(16% 0,100% 0,100% 100%,0 100%)}
+.page-head-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+
+/* ページ内ナビ */
+.anchor-nav{border-bottom:1px solid var(--line);background:#fff}
+.anchor-nav ul{display:flex;flex-wrap:wrap;gap:6px 8px;list-style:none;padding:14px 0}
+.anchor-nav a{display:block;font-size:13px;padding:5px 14px;border-radius:999px;background:var(--blue-soft);color:var(--blue-deep)}
+.anchor-nav a:hover{background:var(--blue);color:#fff}
+
+/* セクション共通 */
+section{padding:80px 0;scroll-margin-top:72px}
+.sec-en{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.12em}
+.sec-title{font-family:var(--head);font-weight:700;font-size:28px;letter-spacing:.06em;margin-top:4px;line-height:1.5}
+.sec-lead{color:var(--muted);font-size:14px;margin-top:8px}
+.alt{background:#f7f9fd}
+
+/* 新卒採用 */
+.fresh{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:32px;align-items:start}
+.fresh-links{display:flex;flex-direction:column;gap:12px}
+.fresh-links .btn{justify-content:space-between}
+.notice-box{background:#fff;border:1px solid #e3eaf6;border-radius:12px;padding:22px 24px}
+.notice-box h3{font-size:14px;color:var(--blue-deep);margin-bottom:10px}
+.notice-box a{display:grid;grid-template-columns:96px 1fr;gap:10px;font-size:14px}
+.notice-box a:hover span:last-child{color:var(--blue);text-decoration:underline}
+.date{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+
+/* キャリア採用 */
+.job-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-top:32px}
+.job{background:#fff;border:1px solid #e3eaf6;border-radius:12px;padding:26px 26px 24px;display:flex;flex-direction:column}
+.job-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.job h3{font-size:19px;font-weight:700}
+.badge{font-size:11px;font-weight:700;padding:2px 12px;border-radius:999px;background:#0f8a7e;color:#fff}
+.badge.stop{background:#8a96b0}
+.job dl{display:grid;grid-template-columns:84px 1fr;gap:10px 14px;margin:18px 0 6px;font-size:13px;flex:1}
+.job dt{font-weight:700;color:var(--blue-deep)}
+.job dd{color:var(--muted)}
+.job-link{margin-top:14px;font-size:13px;font-weight:700;color:var(--blue);display:inline-flex;gap:8px}
+.job-link:hover{text-decoration:underline}
+.job.closed{opacity:.75}
+.sub-links{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px 28px;font-size:13px}
+.sub-links a{color:var(--blue);font-weight:700}
+.sub-links a:hover{text-decoration:underline}
+
+/* お問い合わせ帯 */
+.cta{background:var(--blue-deep);color:#fff;text-align:center;padding:64px 0}
+.cta h2{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.06em}
+.cta p{opacity:.85;margin:8px 0 26px;font-size:14px}
+.cta .btn{background:#fff;color:var(--blue-deep)}
+.cta .btn:hover{background:var(--blue-soft)}
+
+/* フッター */
+footer{background:#f6f8fc;padding:64px 0 0;font-size:13px}
+.foot-in{display:grid;grid-template-columns:1.4fr 2.6fr 210px;gap:40px}
+.foot-co .logo{font-size:17px}
+.bases{margin-top:18px;list-style:none;color:var(--muted);line-height:1.7}
+.bases li{margin-bottom:8px}
+.bases b{color:var(--ink);font-weight:700;margin-right:6px}
+.foot-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.foot-nav h4{color:var(--blue);font-size:13px;margin-bottom:10px}
+.foot-nav ul{list-style:none}
+.foot-nav li a{display:block;padding:3px 0;color:var(--muted)}
+.foot-nav li a:hover{color:var(--blue)}
+.foot-cta{background:var(--blue-deep);color:#fff;border-radius:10px;padding:26px 18px;text-align:center;align-self:start;font-weight:700;line-height:1.7}
+.foot-cta svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.6;margin:10px auto}
+.foot-cta:hover{background:var(--blue)}
+.copy{border-top:1px solid var(--line);margin-top:48px;padding:18px 0;text-align:center;color:var(--muted);font-size:12px}
+
+/* レスポンシブ */
+@media (max-width:960px){
+  nav{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 16px 16px}
+  nav.open{display:block}
+  nav ul{flex-direction:column}
+  nav .nav-contact{margin:8px 0 0;text-align:center}
+  .menu-btn{display:block}
+  .page-head-in{max-width:none}
+  .page-head-photo{position:relative;width:auto;height:200px;clip-path:none}
+  .fresh{grid-template-columns:1fr}
+  .foot-in{grid-template-columns:1fr}
+  .foot-nav{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  section{padding:56px 0}
+  .page-head h1{font-size:27px}
+  .sec-title{font-size:24px}
+  .job-grid{grid-template-columns:1fr}
+  .notice-box a{grid-template-columns:1fr;gap:2px}
+  .logo{font-size:15px;gap:6px}
+  .logo small{font-size:10px}
+  .logo-mark{width:28px;height:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">これはリニューアル検討用のデモページです（公式サイトではありません）</div>
+
+<header>
+  <div class="wrap head-in">
+    <a href="index.html" class="logo" aria-label="トップへ">
+      <img class="logo-mark" src="img/common/logo.webp" alt="" width="36" height="36">
+      <span><small>株式会社</small>西日本情報システム</span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav id="gnav">
+      <ul>
+        <li><a href="products.html">ソリューション・製品</a></li>
+        <li><a href="company.html">会社情報</a></li>
+        <li><a href="index.html#news">ニュース</a></li>
+        <li><a href="recruit.html" aria-current="page">採用情報</a></li>
+        <li><a href="#contact" class="nav-contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="wrap">
+      <div class="page-head-in">
+        <div class="crumb"><a href="index.html">ホーム</a> ／ 採用情報</div>
+        <div class="sec-en">RECRUIT</div>
+        <h1>採用情報</h1>
+        <p class="catch"><small>Let's take on the challenge.</small>ひとり一人のチカラが、<br>新たな未来をつくりだす。</p>
+      </div>
+    </div>
+    <!-- Photo: ぱくたそ https://www.pakutaso.com/ -->
+    <div class="page-head-photo"><img src="img/recruit/recruit.webp" alt="成果を喜び合うチームのイメージ"></div>
+  </div>
+
+  <div class="anchor-nav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#fresh">新卒採用</a></li>
+        <li><a href="#career">キャリア採用</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 新卒採用 -->
+  <section id="fresh">
+    <div class="wrap">
+      <div class="sec-en">NEW GRADUATES</div>
+      <h2 class="sec-title">新卒採用</h2>
+      <div class="fresh">
+        <div>
+          <p class="sec-lead">新卒採用Webサイトでは、私たちの仕事や社員インタビューをご紹介しています。エントリーは各就職情報サイトから受け付けています。</p>
+          <div class="notice-box" style="margin-top:24px">
+            <h3>新卒採用のお知らせ</h3>
+            <a href="index.html#news"><span class="date">2026.05.25</span><span>2027年新卒向け会社説明会開催のお知らせ（既卒者可）</span></a>
+          </div>
+        </div>
+        <div class="fresh-links">
+          <a class="btn btn-fill" href="https://www.n-js.co.jp/recruit/fresh/index.html" target="_blank" rel="noopener">新卒採用Webサイト <i>→</i></a>
+          <a class="btn btn-line" href="https://job.mynavi.jp/27/pc/search/corp245821/outline.html" target="_blank" rel="noopener">マイナビ2027でエントリー <i>→</i></a>
+          <a class="btn btn-line" href="https://job.career-tasu.jp/corp/00072430/" target="_blank" rel="noopener">キャリタス就活 <i>→</i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- キャリア採用 -->
+  <section id="career" class="alt">
+    <div class="wrap">
+      <div class="sec-en">CAREER</div>
+      <h2 class="sec-title">キャリア採用</h2>
+      <div class="job-grid">
+        <article class="job">
+          <div class="job-head"><h3>システムエンジニア</h3><span class="badge">募集中</span></div>
+          <dl>
+            <dt>応募資格</dt><dd>実務経験者<br>有資格者歓迎（基本情報技術者等）</dd>
+            <dt>勤務地</dt><dd>山口県、東京都、大阪府、福岡県、石川県　他</dd>
+            <dt>応募方法</dt><dd>応募書類を西部本社総務部宛にご郵送ください。</dd>
+          </dl>
+          <a class="job-link" href="career.html">募集要項を見る <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="job closed">
+          <div class="job-head"><h3>企画営業</h3><span class="badge stop">募集停止中</span></div>
+          <dl>
+            <dt>職種</dt><dd>ソフトウェアに関する企画、販売、営業</dd>
+            <dt>勤務地</dt><dd>西部本社（山口県山口市）</dd>
+          </dl>
+          <a class="job-link" href="https://www.n-js.co.jp/recruit/career-eigyo.html" target="_blank" rel="noopener">募集要項を見る <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+      <div class="sub-links">
+        <a href="https://www.n-js.co.jp/recruit/notice.htm" target="_blank" rel="noopener">採用選考・求職活動における留意事項 →</a>
+        <a href="company.html#bases">勤務地（拠点一覧）を見る →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div class="wrap">
+      <h2>採用についてのお問い合わせ</h2>
+      <p>選考や会社見学についてのご質問は、お気軽にお問い合わせください。</p>
+      <a href="#contact" class="btn">お問い合わせ <i>→</i></a>
+    </div>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="wrap foot-in">
+    <div class="foot-co">
+      <div class="logo"><img class="logo-mark" src="img/common/logo.webp" alt="" width="36" height="36"><span><small>株式会社</small>西日本情報システム</span></div>
+      <ul class="bases">
+        <li><b>東京本社</b>東京都品川区南大井6-19-6<br>TEL 03-5753-7555</li>
+        <li><b>西部本社</b>山口県山口市佐山産業団地南1200-13<br>TEL 083-988-0240</li>
+        <li><b>支店</b>関西／福岡／北陸</li>
+      </ul>
+    </div>
+    <div class="foot-nav">
+      <div><h4>ソリューション・製品</h4><ul><li><a href="solution.html">ソリューションサービス</a></li><li><a href="works.html">開発実績</a></li><li><a href="products.html#package">パッケージ製品</a></li></ul></div>
+      <div><h4>会社情報</h4><ul><li><a href="company.html#profile">会社概要</a></li><li><a href="company.html#bases">拠点一覧</a></li><li><a href="company.html#related">関連会社</a></li><li><a href="https://www.n-js.co.jp/privacy/" target="_blank" rel="noopener">個人情報の取扱い</a></li></ul></div>
+      <div><h4>ニュース</h4><ul><li><a href="index.html#news">お知らせ</a></li></ul></div>
+      <div><h4>採用情報</h4><ul><li><a href="#fresh">新卒採用</a></li><li><a href="#career">キャリア採用</a></li></ul></div>
+    </div>
+    <a href="#" class="foot-cta">お問い合わせ<br>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="7" width="24" height="18" rx="2"/><path d="M4 9l12 9 12-9"/></svg><br>
+      お問い合わせ・資料請求へ</a>
+  </div>
+  <div class="copy">© 2026 Nishinippon Information System Co., Ltd.（デモ）</div>
+</footer>
+
+<script>
+const btn=document.querySelector('.menu-btn'),nav=document.getElementById('gnav');
+btn.addEventListener('click',()=>{const o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');btn.setAttribute('aria-expanded',false)}));
+</script>
+</body>
+</html>
