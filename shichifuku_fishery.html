@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>【デモ】七福神-漁協版｜株式会社西日本情報システム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1747b3;
+  --blue-deep:#0c2a72;
+  --blue-soft:#e9f0fb;
+  --ink:#16203a;
+  --muted:#5b6680;
+  --line:#dbe3f0;
+  --white:#ffffff;
+  --head:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+  --body:"Noto Sans JP",sans-serif;
+  --w:1120px;
+  /* 製品カラー（製品PDFの配色から） */
+  --navy:#0b4f97;
+  --sky:#dbe8f7;
+  --sea:#1f7fc4;
+  --fuku:#b8282e;
+  --gold:#e8c547;
+  --orange:#e07b1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/* scroll-behavior:smooth は使わない。ScrollTrigger が位置を測り直すときの一時スクロールまで滑らかになり、ピン位置などが狂う。ページ内リンクはJSで滑らかにする */
+body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid #f2b705;outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+
+/* デモ表示帯 */
+.demo-bar{background:#fff7d6;color:#6b5200;font-size:12px;text-align:center;padding:6px 16px;border-bottom:1px solid #f0e2a6}
+
+/* ヘッダー */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:19px;letter-spacing:.04em}
+.logo-mark{width:36px;height:36px;object-fit:contain;flex-shrink:0}
+.logo small{font-size:12px;margin-right:4px;font-weight:700}
+nav ul{display:flex;gap:4px;list-style:none}
+nav a{display:block;padding:10px 16px;font-size:14px;font-weight:500;border-radius:6px}
+nav a:hover,nav a[aria-current]{background:var(--blue-soft);color:var(--blue)}
+nav .nav-contact{background:var(--blue);color:#fff;margin-left:8px}
+nav .nav-contact:hover{background:var(--blue-deep);color:#fff}
+.menu-btn{display:none;white-space:nowrap;flex-shrink:0;background:none;border:1px solid var(--line);border-radius:6px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+
+/* ボタン */
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 30px;border-radius:999px;font-size:14px;font-weight:700;transition:background .2s,color .2s}
+.btn-fill{background:var(--blue);color:#fff}
+.btn-fill:hover{background:var(--blue-deep)}
+.btn-line{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.btn-line:hover{background:var(--navy);color:#fff}
+.btn i{font-style:normal;transition:transform .2s}
+.btn:hover i{transform:translateX(4px)}
+
+/* セクション共通 */
+section{padding:96px 0;scroll-margin-top:72px;position:relative}
+.sec-en{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.12em}
+.sec-title{font-family:var(--head);font-weight:700;font-size:30px;letter-spacing:.06em;margin-top:4px;line-height:1.5}
+.sec-lead{color:var(--muted);font-size:14px;margin-top:10px;max-width:760px}
+.alt{background:#f5f8fd}
+.center{text-align:center}
+.center .sec-lead{margin-left:auto;margin-right:auto}
+.em{color:var(--fuku)}
+
+/* ── ヒーロー ── */
+.hero{background:var(--sky);padding:40px 0 150px;overflow:hidden;position:relative}
+.crumb{font-size:12px;color:var(--muted)}
+.crumb a:hover{text-decoration:underline}
+.hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;margin-top:24px}
+.hero-eyebrow{font-size:15px;letter-spacing:.5em;color:var(--navy);font-weight:700}
+.hero h1{font-family:var(--head);font-weight:900;font-size:76px;line-height:1.2;letter-spacing:.08em;margin-top:14px}
+.hero h1 .ed{display:block;font-size:26px;letter-spacing:.12em;color:var(--navy);margin-top:6px}
+.hero h1 .ch{display:inline-block}
+.hero-band{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:17px;letter-spacing:.08em;padding:8px 20px;margin-top:22px}
+.hero-lead{margin-top:22px;font-size:14px;line-height:2;max-width:520px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-visual{position:relative;max-width:470px;justify-self:center;width:100%}
+/* 画像の四辺をぼかして背景色になじませる（JPEGの色ずれで枠が見えるため） */
+.hero-boat{width:100%;height:auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(transparent,#000 6%,#000 94%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(transparent,#000 6%,#000 94%,transparent);mask-composite:intersect}
+.bubble{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#9cc9ef 70%);opacity:.8;pointer-events:none}
+.waves{position:absolute;left:0;right:0;bottom:-1px;height:120px;overflow:hidden;pointer-events:none}
+.waves svg{position:absolute;bottom:0;left:0;width:200%;height:100%}
+.wave-back{fill:#a9cdee}
+.wave-mid{fill:#5aa6e0;opacity:.55}
+.wave-front{fill:#fff}
+
+/* ページ内ナビ */
+.anchor-nav{border-bottom:1px solid var(--line);background:#fff}
+.anchor-nav ul{display:flex;flex-wrap:wrap;gap:6px 8px;list-style:none;padding:14px 0}
+.anchor-nav a{display:block;font-size:13px;padding:5px 14px;border-radius:999px;background:var(--blue-soft);color:var(--blue-deep)}
+.anchor-nav a:hover{background:var(--blue);color:#fff}
+
+/* ── 導入実績 ── */
+.results{padding-top:72px}
+.res-in{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.res-big{font-family:var(--head);font-weight:900;color:var(--navy);line-height:1;display:flex;align-items:baseline;gap:6px}
+.res-big small{font-size:24px}
+.res-big b{font-size:120px;letter-spacing:-.02em;color:var(--fuku)}
+.res-copy{font-size:18px;font-weight:700;line-height:1.9;margin-top:18px}
+.res-list{display:grid;gap:14px;list-style:none}
+.res-list li{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:1px solid var(--line);border-left:6px solid var(--gold);border-radius:10px;padding:18px 24px;font-weight:700}
+.res-list .num{font-family:var(--head);font-size:40px;color:var(--fuku);line-height:1}
+.res-list .num small{font-size:16px;color:var(--ink);margin-left:4px}
+
+/* ── お客様の課題 ── */
+.issues{background:linear-gradient(160deg,var(--navy),var(--blue-deep));color:#fff}
+.issues .sec-en{color:#9fc3f0}
+.issue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;list-style:none;margin-top:36px}
+.issue-grid li{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:14px 16px;font-weight:700;font-size:14px}
+.chk{width:26px;height:26px;flex-shrink:0;background:#fff;border-radius:5px;padding:3px}
+.chk path{fill:none;stroke:var(--fuku);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.issue-answer{margin-top:40px;background:#fff;color:var(--ink);border-radius:14px;padding:28px 32px;display:flex;gap:20px;align-items:center}
+.issue-answer .tag{flex-shrink:0;background:var(--fuku);color:#fff;font-weight:700;border-radius:50%;width:84px;height:84px;display:grid;place-items:center;text-align:center;font-size:13px;line-height:1.4}
+.issue-answer p{font-size:18px;font-weight:700;line-height:1.8}
+.issue-answer p span{color:var(--navy);border-bottom:3px solid var(--gold)}
+
+/* ── 特徴 ── */
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px 22px;position:relative;overflow:hidden}
+.feat::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--navy),var(--sea))}
+.feat-no{font-family:var(--head);font-weight:900;font-size:42px;color:var(--blue-soft);line-height:1;-webkit-text-stroke:1px #b9cdee}
+.feat h3{font-size:17px;line-height:1.6;margin:12px 0 10px}
+.feat p{font-size:13px;color:var(--muted);line-height:1.9}
+.scale{margin-top:40px;background:var(--blue-soft);border-radius:14px;padding:28px 32px}
+.scale h3{font-size:18px}
+.scale h3 span{color:var(--orange)}
+.scale ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px 28px;list-style:none;margin-top:14px;font-size:14px}
+.scale li::before{content:"・";color:var(--orange);font-weight:700}
+
+/* ── 連動構造・連携（ハブ図） ── */
+.hub-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:40px}
+.hub-wrap.rev .hub-fig{order:2}
+.hub-fig{max-width:540px;width:100%;justify-self:center}
+.hub-fig svg{width:100%;height:auto;overflow:visible}
+.hub line{stroke:#a8c3e8;stroke-width:2;stroke-dasharray:1;stroke-dashoffset:0}
+.hub .dot{fill:var(--orange)}
+.hub-node rect{fill:#fff;stroke:var(--sea);stroke-width:1.5}
+.hub-node text{font-weight:700;fill:var(--navy)}
+.hub-center circle{fill:var(--navy)}
+.hub-center .ring{fill:none;stroke:var(--gold);stroke-width:3;stroke-dasharray:6 8}
+.hub-center text{fill:#fff;font-weight:700;font-size:18px}
+.hub-center text.big{font-family:var(--head);font-size:32px;font-weight:900}
+.hub-text h3{font-size:22px;font-family:var(--head);line-height:1.6}
+.hub-text h3 span{color:var(--orange)}
+.hub-text .sub{font-weight:700;color:var(--navy);margin-top:14px}
+.hub-text p{font-size:14px;line-height:2;margin-top:8px}
+.prog{margin-top:22px}
+.prog h4{font-size:14px;background:var(--navy);color:#fff;display:inline-block;padding:4px 16px;border-radius:4px}
+.prog ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.prog li{font-size:13px;font-weight:700;border:1px solid var(--sea);color:var(--navy);background:#fff;border-radius:999px;padding:5px 14px}
+
+/* ── システム一覧 ── */
+.filter{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.filter button{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 18px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.filter button:hover{border-color:var(--navy)}
+.filter button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;list-style:none;margin-top:24px;position:relative}
+.sys-grid li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px 14px 18px;position:relative;font-weight:700;font-size:14px;line-height:1.6}
+.sys-grid li::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;border-radius:0 3px 3px 0;background:var(--g)}
+.sys-grid li small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:4px}
+.sys-grid .g{display:block;font-size:11px;color:var(--g);margin-bottom:2px}
+.sys-grid li.is-hidden{display:none}
+[data-group="acc"]{--g:#1747b3}
+[data-group="eco"]{--g:#0e8a7a}
+[data-group="aqua"]{--g:#b8572a}
+[data-group="fuel"]{--g:#a87800}
+[data-group="info"]{--g:#6a4fb3}
+
+/* ── 七福神のポイント ── */
+.points{background:var(--sky);overflow:hidden}
+.points-view{margin-top:36px}
+.points-track{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.point{background:#fff;border-radius:16px;padding:20px;box-shadow:0 6px 24px rgba(11,79,151,.08)}
+.point-shot{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#eef3f8;aspect-ratio:4/3;display:grid;place-items:center}
+.point-shot img{width:100%;height:100%;object-fit:contain}
+.point-head{display:flex;align-items:center;gap:12px;margin-top:18px}
+.point-badge{background:var(--orange);color:#fff;border-radius:999px;font-weight:700;font-size:11px;letter-spacing:.06em;padding:4px 12px 4px 14px;white-space:nowrap}
+.point-badge b{font-family:var(--head);font-size:20px;margin-left:4px;line-height:1}
+.point h3{font-size:20px;font-family:var(--head);color:var(--navy)}
+.point .catch{font-weight:700;margin-top:10px;line-height:1.6}
+.point p{font-size:13px;color:var(--muted);line-height:1.9;margin-top:6px}
+.points-bar{height:4px;background:rgba(11,79,151,.12);border-radius:2px;margin-top:28px;overflow:hidden;display:none}
+.points-bar span{display:block;height:100%;width:100%;background:var(--navy);transform-origin:0 50%;transform:scaleX(0)}
+@media (min-width:961px){
+  .points.is-h .points-track{display:flex;width:max-content;gap:24px}
+  .points.is-h .point{width:380px;flex-shrink:0}
+  .points.is-h .points-bar{display:block}
+  /* 固定表示中はセクション全体が画面（ヘッダー下）に収まるよう、余白と画面キャプチャの高さを画面の高さに合わせて詰める */
+  .points.is-h{padding:40px 0}
+  .points.is-h .points-view{margin-top:24px}
+  .points.is-h .point-shot{aspect-ratio:auto;height:clamp(110px,calc(100vh - 500px),285px)}
+}
+
+/* ── クラウド版 ── */
+.cloud-top{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:36px}
+.cloud-what{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px}
+.cloud-what h3{font-size:20px;color:var(--fuku);font-family:var(--head)}
+.cloud-what p{font-size:14px;margin-top:10px;line-height:2}
+.cloud-fig svg{width:100%;height:auto}
+.merits{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:40px;list-style:none}
+.merit{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center}
+.merit h4{font-size:15px;color:var(--navy)}
+.merit .badge{display:grid;place-items:center;width:84px;height:84px;margin:14px auto;border-radius:50%;background:var(--sea);color:#fff;font-weight:900;font-family:var(--head);font-size:17px;line-height:1.3}
+.merit .badge.calm{background:#2f7d5f}
+.merit .badge.gold{background:var(--gold);color:var(--ink)}
+.merit p{font-size:12.5px;color:var(--muted);line-height:1.8;text-align:left}
+.compare{margin-top:48px;overflow-x:auto}
+.compare table{width:100%;min-width:640px;border-collapse:separate;border-spacing:0 6px;font-size:14px}
+.compare caption{text-align:left;font-weight:700;font-size:18px;margin-bottom:10px;font-family:var(--head)}
+.compare th,.compare td{padding:14px 18px;vertical-align:middle}
+.compare thead th{font-size:13px;background:none;padding-bottom:4px}
+.compare thead th:last-child{background:var(--gold);border-radius:8px 8px 0 0}
+.compare tbody th{background:var(--sea);color:#fff;text-align:center;border-radius:8px 0 0 8px;width:24%}
+.compare tbody td{background:#eef4fb}
+.compare tbody td:last-child{background:#fbf6d8;color:var(--fuku);font-weight:700;border-radius:0 8px 8px 0}
+.compare small{display:block;font-size:11px;font-weight:400}
+
+/* ── 安心サービス ── */
+.worry{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;list-style:none;margin-top:28px}
+.worry li{display:flex;gap:10px;align-items:center;font-weight:700;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.worry .chk{background:var(--blue-soft)}
+.guide{margin-top:28px;font-weight:700;font-size:17px;text-align:center}
+.guide span{border-bottom:3px solid var(--gold)}
+.backup-fig{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+.backup-fig svg{width:100%;height:auto;display:block}
+.backup-note{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;margin-top:28px}
+.backup-note p{font-size:14px;line-height:2}
+.dc{background:var(--blue-soft);border-radius:12px;padding:18px 22px;font-size:13px;line-height:1.9}
+.dc b{color:var(--navy)}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none;margin-top:28px}
+.svc li{background:var(--navy);color:#fff;border-radius:12px;padding:20px 22px;font-weight:700}
+.svc li small{display:block;font-weight:400;font-size:12px;opacity:.85;margin-top:6px;line-height:1.8}
+.support{margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;border:2px solid var(--navy);border-radius:16px;padding:26px 32px;background:#fff}
+.support h3{font-size:20px;font-family:var(--head)}
+.support p{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.9;max-width:580px}
+.tel{text-align:center}
+.tel small{display:block;font-size:12px;font-weight:700;color:var(--navy)}
+.tel a{font-family:var(--head);font-weight:900;font-size:34px;color:var(--navy);letter-spacing:.04em}
+
+/* ── オプション ── */
+.opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+/* transform は GSAP の出現アニメが使うので、CSS の transition や hover で動かさない（取り合うとカードが下にずれたまま止まる） */
+.opt{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;transition:box-shadow .25s,border-color .25s}
+.opt:hover{box-shadow:0 12px 28px rgba(11,79,151,.14);border-color:var(--sea)}
+.opt .catch{font-size:12px;font-weight:700;color:var(--orange)}
+.opt h3{font-size:17px;line-height:1.6;margin-top:4px;color:var(--navy)}
+.opt ul{list-style:none;margin-top:12px;font-size:13px;line-height:1.8;color:var(--muted)}
+.opt li{padding-left:1.1em;text-indent:-1.1em}
+.opt li::before{content:"›";color:var(--sea);font-weight:700;margin-right:.5em}
+.opt-note{margin-top:20px;font-size:13px;color:var(--muted);text-align:center}
+
+/* ── 資料 ── */
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none;margin-top:32px}
+.docs a{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;font-weight:700;font-size:14px;line-height:1.6;height:100%;transition:border-color .2s}
+.docs a:hover{border-color:var(--navy)}
+.docs svg{width:34px;height:40px;flex-shrink:0}
+.docs small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+
+/* 関連製品 */
+.related{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}
+.related a{display:block;transition:transform .2s}
+.related a:hover{transform:translateY(-3px)}
+.related img{width:220px;height:50px;box-shadow:0 2px 8px rgba(12,42,114,.12)}
+
+/* お問い合わせ帯 */
+.cta{background:var(--blue-deep);color:#fff;text-align:center;padding:64px 0}
+.cta h2{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.06em}
+.cta p{opacity:.85;margin:8px 0 26px;font-size:14px}
+.cta .btn{background:#fff;color:var(--blue-deep)}
+.cta .btn:hover{background:var(--blue-soft)}
+
+/* フッター */
+footer{background:#f6f8fc;padding:64px 0 0;font-size:13px}
+.foot-in{display:grid;grid-template-columns:1.4fr 2.6fr 210px;gap:40px}
+.foot-co .logo{font-size:17px}
+.bases{margin-top:18px;list-style:none;color:var(--muted);line-height:1.7}
+.bases li{margin-bottom:8px}
+.bases b{color:var(--ink);font-weight:700;margin-right:6px}
+.foot-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.foot-nav h4{color:var(--blue);font-size:13px;margin-bottom:10px}
+.foot-nav ul{list-style:none}
+.foot-nav li a{display:block;padding:3px 0;color:var(--muted)}
+.foot-nav li a:hover{color:var(--blue)}
+.foot-cta{background:var(--blue-deep);color:#fff;border-radius:10px;padding:26px 18px;text-align:center;align-self:start;font-weight:700;line-height:1.7}
+.foot-cta svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.6;margin:10px auto}
+.foot-cta:hover{background:var(--blue)}
+.copy{border-top:1px solid var(--line);margin-top:48px;padding:18px 0;text-align:center;color:var(--muted);font-size:12px}
+
+/* レスポンシブ */
+@media (max-width:960px){
+  nav{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 16px 16px}
+  nav.open{display:block}
+  nav ul{flex-direction:column}
+  nav .nav-contact{margin:8px 0 0;text-align:center}
+  .menu-btn{display:block}
+  .foot-in{grid-template-columns:1fr}
+  .foot-nav{grid-template-columns:repeat(2,1fr)}
+  .hero-in,.res-in,.hub-wrap,.cloud-top,.backup-note{grid-template-columns:1fr}
+  .hub-wrap.rev .hub-fig{order:0}
+  .hero-visual{max-width:380px}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .merits{grid-template-columns:repeat(2,1fr)}
+  .opt-grid,.svc,.docs{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  section{padding:64px 0}
+  .wrap{padding:0 16px}
+  .sec-title{font-size:24px}
+  .hero{padding-bottom:110px}
+  .hero h1{font-size:54px}
+  .hero h1 .ed{font-size:20px}
+  .hero-eyebrow{letter-spacing:.3em;font-size:13px}
+  .hero-band{font-size:14px;padding:6px 14px}
+  .res-big b{font-size:88px}
+  .feat-grid,.merits,.opt-grid,.svc,.docs{grid-template-columns:1fr}
+  .issue-answer{flex-direction:column;text-align:center;padding:24px 20px}
+  .issue-answer p{font-size:16px}
+  .logo{font-size:15px;gap:6px}
+  .logo small{font-size:10px}
+  .logo-mark{width:28px;height:28px}
+  .support{padding:22px 20px}
+  .tel a{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">これはリニューアル検討用のデモページです（公式サイトではありません）</div>
+
+<header>
+  <div class="wrap head-in">
+    <a href="index.html" class="logo" aria-label="トップへ">
+      <img class="logo-mark" src="img/common/logo.webp" alt="" width="36" height="36">
+      <span><small>株式会社</small>西日本情報システム</span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="gnav">メニュー</button>
+    <nav id="gnav">
+      <ul>
+        <li><a href="products.html" aria-current="page">ソリューション・製品</a></li>
+        <li><a href="company.html">会社情報</a></li>
+        <li><a href="index.html#news">ニュース</a></li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="#contact" class="nav-contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ヒーロー -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">ホーム</a> ／ <a href="products.html">製品・サービス</a> ／ 七福神-漁協版</div>
+      <div class="hero-in">
+        <div class="hero-text">
+          <p class="hero-eyebrow" data-hero>日本の漁業を未来へつなぐ</p>
+          <h1><span class="split">七福神</span><span class="ed" data-hero>漁協版</span></h1>
+          <p class="hero-band" data-hero>信頼と実績の漁協業務総合支援システム</p>
+          <p class="hero-lead" data-hero>漁業協同組合殿向けの経済事業をはじめ、多様な業務機能を包括したトータルシステムとしてパッケージ化されております。「事務処理の統一と効率化」に対し、弊社では、今までのノウハウと技術を結集して、「組合員様のサービス向上、事務処理の軽減」に繋がるシステムをご提供いたします。</p>
+          <div class="hero-btns" data-hero>
+            <a href="#contact" class="btn btn-fill">お問い合わせ・資料請求 <i>→</i></a>
+            <a href="https://www.n-js.co.jp/product/pdf/sichifukujin.pdf" class="btn btn-line" target="_blank" rel="noopener">製品PDFを見る <i>→</i></a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-boat" src="img/products/shichifuku_fishery/hero_boat.jpg" alt="七福神 漁協版（宝船に乗った七福神のイラスト）" width="900" height="1021">
+        </div>
+      </div>
+    </div>
+    <div class="waves" aria-hidden="true">
+      <svg class="wave-back" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 52 Q360 12 720 52 T1440 52 T2160 52 T2880 52 V120 H0Z"/></svg>
+      <svg class="wave-mid" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 70 Q360 36 720 70 T1440 70 T2160 70 T2880 70 V120 H0Z"/></svg>
+      <svg class="wave-front" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 92 Q360 66 720 92 T1440 92 T2160 92 T2880 92 V120 H0Z"/></svg>
+    </div>
+  </div>
+
+  <div class="anchor-nav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#results">導入実績</a></li>
+        <li><a href="#features">特徴</a></li>
+        <li><a href="#structure">連動・連携</a></li>
+        <li><a href="#systems">システム一覧</a></li>
+        <li><a href="#points">七福神のポイント</a></li>
+        <li><a href="#cloud">クラウド版</a></li>
+        <li><a href="#safety">安心サービス</a></li>
+        <li><a href="#options">オプション</a></li>
+        <li><a href="#docs">資料</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 導入実績 -->
+  <section id="results" class="results">
+    <div class="wrap res-in">
+      <div data-reveal>
+        <div class="sec-en">RESULTS</div>
+        <h2 class="sec-title">導入実績</h2>
+        <p class="res-big"><small>約</small><b data-count="640">640</b><small>拠点</small></p>
+        <p class="res-copy">長年の実績と経験から、<span class="em">高品質なシステムを短納期でご提供</span>し<br>現在、約640の拠点でご利用いただいております。</p>
+      </div>
+      <ul class="res-list" data-stagger>
+        <li>県1漁業協同組合<span class="num"><span data-count="7">7</span><small>県</small></span></li>
+        <li>漁業協同組合<span class="num"><span data-count="630">630</span><small>拠点</small></span></li>
+        <li>その他系統団体<span class="num"><span data-count="4">4</span><small>団体</small></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- お客様の課題 -->
+  <section id="issues" class="issues">
+    <div class="wrap">
+      <div class="sec-en">ISSUES</div>
+      <h2 class="sec-title">七福神が取り組むお客様の課題</h2>
+      <ul class="issue-grid" data-checks>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>データの再投入が多い</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>入力ミスが多い</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>外部へのデータ提供が大変</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>業務効率を向上したい</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>名寄せ、債権管理したい</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>熟練者の高齢化や不足</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>システムを手直しできない</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>バックアップやセキュリティが心配</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>運用コストを低減したい</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>経営を見える化したい</li>
+      </ul>
+      <div class="issue-answer" data-reveal>
+        <div class="tag">お任せ<br>ください！</div>
+        <p>漁協様のご要望に合わせて<span>段階的なシステム導入</span>が可能です。<br>無理なく計画的にシステムを<span>導入・拡張</span>することができます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 特徴 -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-en">FEATURES</div>
+      <h2 class="sec-title">特徴</h2>
+      <div class="feat-grid" data-stagger>
+        <article class="feat"><div class="feat-no">01</div><h3>高機能・高品質で<br>高コストパフォーマンス</h3><p>全国で多くの漁業協同組合様からご支持いただいている高機能・高品質でコストパフォーマンスの高いシステムです。</p></article>
+        <article class="feat"><div class="feat-no">02</div><h3>長年のノウハウと<br>技術を結集</h3><p>漁業協同組合様と共に課題に取り組み長年のノウハウと技術を結集してきました。</p></article>
+        <article class="feat"><div class="feat-no">03</div><h3>柔軟な<br>カスタマイズが可能</h3><p>導入実績が豊富で、ご要望に合わせた柔軟なカスタマイズが可能です。</p></article>
+        <article class="feat"><div class="feat-no">04</div><h3>サブシステムも<br>充実</h3><p>サブシステムも充実しており、漁業協同組合様に最適なシステムをご提供します。</p></article>
+      </div>
+      <div class="scale" data-reveal>
+        <h3><span>小規模運用から大規模運用</span>を網羅した機能</h3>
+        <ul>
+          <li>県一、広域合併など大規模対応も可能</li>
+          <li>統一取引先コードと支所別取引先コード</li>
+          <li>代行入力機能（小規模支所にPCが無くても導入可能）</li>
+          <li>豊富な機能と帳票</li>
+          <li>全帳票のプレビュー、Excel出力</li>
+          <li>債権債務の一元化による与信管理</li>
+          <li>クラウド版も用意</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 連動構造・連携 -->
+  <section id="structure" class="alt">
+    <div class="wrap">
+      <div class="sec-en">STRUCTURE</div>
+      <h2 class="sec-title">すべての業務が、ひとつにつながる</h2>
+      <div class="hub-wrap">
+        <figure class="hub-fig">
+          <svg class="hub" id="hub-biz" viewBox="0 0 640 640" role="img" aria-label="組合員取引先・会計・債権を中心に、煮干・販売・購買・買取販売・製氷・冷凍・利用・保管・加工・海苔・カキの各事業システムが連動する構造図"></svg>
+        </figure>
+        <div class="hub-text" data-reveal>
+          <h3><span>各事業システムの全てを連動</span>した構造</h3>
+          <p class="sub">事業所(支所)別・部門別マトリックス管理を実現！</p>
+          <p>各事業システムにおいて、事業所別・部門別に発生した伝票を組合員／取引先を名寄せし、債権の集中管理を実現させることが可能です。また、各事業システムと勘定科目を連動し、財務会計システムへ仕訳伝票を自動生成（伝票起票の二重処理廃止）させることが可能です。</p>
+        </div>
+      </div>
+      <div class="hub-wrap rev">
+        <figure class="hub-fig">
+          <svg class="hub" id="hub-data" viewBox="0 0 640 640" role="img" aria-label="漁協業務システム七福神を中心に、直売所・ガソリンスタンド・他港水揚データ・市況データ開示・全国漁信オンラインセンター・TAC（漁獲可能量管理）システム・統計データ抽出・県、市町村、水産センター等・Excel出力・LPガスとデータを連携する図"></svg>
+        </figure>
+        <div class="hub-text" data-reveal>
+          <h3><span>データ資産</span>の活用</h3>
+          <p class="sub">大切なデータを有効に活用</p>
+          <p>様々な施設で投入されたデータを、連携・共有・加工することにより、投入された大切な資産を有効に活用することができます。二重入力の手間、入力ミスを軽減でき、業務の効率化につなげることが可能です。</p>
+          <div class="prog">
+            <h4>各種連携プログラム</h4>
+            <ul data-stagger>
+              <li>TAC（漁獲可能量管理）システム</li>
+              <li>他港市場システム</li>
+              <li>全オン（信用オンライン端末）システム</li>
+              <li>中元・歳暮ネット販売システム</li>
+              <li>共済漁家台帳（共水連）</li>
+              <li>減価償却・固定資産システム</li>
+              <li>給与管理システム</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- システム一覧 -->
+  <section id="systems">
+    <div class="wrap">
+      <div class="sec-en">SYSTEMS</div>
+      <h2 class="sec-title">システム一覧</h2>
+      <p class="sec-lead">漁協のあらゆる事業を、目的別のシステムでカバーします。分類を選ぶと絞り込めます。</p>
+      <div class="filter" role="group" aria-label="システムの分類で絞り込み">
+        <button type="button" data-filter="all" aria-pressed="true">すべて</button>
+        <button type="button" data-filter="acc" aria-pressed="false">経理・管理</button>
+        <button type="button" data-filter="eco" aria-pressed="false">経済事業</button>
+        <button type="button" data-filter="aqua" aria-pressed="false">養殖・水産加工</button>
+        <button type="button" data-filter="fuel" aria-pressed="false">燃料・検針</button>
+        <button type="button" data-filter="info" aria-pressed="false">情報収集・開示</button>
+      </div>
+      <ul class="sys-grid" id="sys-grid" aria-live="polite">
+        <li data-group="acc"><span class="g">経理・管理</span>財務会計システム</li>
+        <li data-group="acc"><span class="g">経理・管理</span>債権・債務管理システム</li>
+        <li data-group="acc"><span class="g">経理・管理</span>名寄せ・自己査定システム</li>
+        <li data-group="acc"><span class="g">経理・管理</span>取引先管理システム</li>
+        <li data-group="acc"><span class="g">経理・管理</span>組合員情報システム<small>出資金管理／漁船管理台帳／漁業許認可／所有免許管理 サブシステム</small></li>
+        <li data-group="acc"><span class="g">経理・管理</span>共済事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>販売事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>購買事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>買取販売事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>製氷事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>冷凍事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>利用事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>保管事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>加工事業システム</li>
+        <li data-group="eco"><span class="g">経済事業</span>加工場販売管理システム</li>
+        <li data-group="aqua"><span class="g">養殖・水産加工</span>海苔事業システム</li>
+        <li data-group="aqua"><span class="g">養殖・水産加工</span>カキ事業システム</li>
+        <li data-group="aqua"><span class="g">養殖・水産加工</span>煮干事業システム</li>
+        <li data-group="aqua"><span class="g">養殖・水産加工</span>養魚事業システム</li>
+        <li data-group="aqua"><span class="g">養殖・水産加工</span>母貝事業システム</li>
+        <li data-group="aqua"><span class="g">養殖・水産加工</span>簀場（生簀）管理システム</li>
+        <li data-group="fuel"><span class="g">燃料・検針</span>LPガス検針・保安管理システム</li>
+        <li data-group="fuel"><span class="g">燃料・検針</span>ハンディターミナル検針システム</li>
+        <li data-group="fuel"><span class="g">燃料・検針</span>免税軽油管理システム</li>
+        <li data-group="info"><span class="g">情報収集・開示</span>荷受情報収集システム<small>遠隔入力システム利用</small></li>
+        <li data-group="info"><span class="g">情報収集・開示</span>市況情報開示システム<small>ディスプレイ表示</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 七福神のポイント -->
+  <section id="points" class="points">
+    <div class="wrap">
+      <div class="sec-en">POINTS</div>
+      <h2 class="sec-title">七福神のポイント</h2>
+      <p class="sec-lead">現場の使いやすさにこだわった、9つの機能をご紹介します。</p>
+      <div class="points-view">
+        <div class="points-track">
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point1.jpg" alt="メニュー画面" width="367" height="221" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>1</b></span><h3>メニュー</h3></div><p class="catch">業務の流れが一目瞭然</p><p>運用に則した業務フローを構築することができる構造です。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point2.jpg" alt="名寄せ画面" width="367" height="264" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>2</b></span><h3>名寄せ</h3></div><p class="catch">一人一背番号制を採用</p><p>生産者・仲買人等の垣根を越えた未収未払の管理を行うことができます。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point3.jpg" alt="締め戻し処理画面" width="367" height="265" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>3</b></span><h3>締め戻し処理</h3></div><p class="catch">日時締め処理を解除できる機能</p><p>水揚伝票の日時締めを解除して水揚伝票の修正を行うことができます。変更を行った場合は変更履歴を残すことが可能です。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point4.jpg" alt="Excel出力画面" width="355" height="255" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>4</b></span><h3>Excel出力</h3></div><p class="catch">すべての入力データをExcel出力できる機能</p><p>入力したすべてのデータは自由に取り出すことができ、各種提出資料の作成等に役立ちます。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point5.jpg" alt="権限管理画面" width="355" height="255" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>5</b></span><h3>権限管理</h3></div><p class="catch">各ご担当者様ごとに利用できるシステムの権限設定機能</p><p>権限は事業・部門・機能ごとに設定することが可能です。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point6.jpg" alt="自動仕訳画面" width="355" height="255" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>6</b></span><h3>自動仕訳</h3></div><p class="catch">経済事業システムのデータを会計システムに連携する機能</p><p>予め登録してある設定を基に自動仕訳を行うことが可能です。お客様の任意のタイミングで一括して連携を行うことができます。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point7.jpg" alt="入金消込画面" width="331" height="271" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>7</b></span><h3>入金消込</h3></div><p class="catch">伝票ごとに入金管理が行える機能</p><p>「どの伝票に対する入金があったか」「未収の伝票はどれか」を明確に管理できます。また事業をまたいだ伝票の入金消込みも可能です。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point8.jpg" alt="商品別供給入力画面" width="331" height="216" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>8</b></span><h3>商品別供給入力</h3></div><p class="catch">商品をヘッダーにして入力できる機能</p><p>供給先に対して商品、数量、金額を入力する機能に加えて、ひとつの商品に対して供給先、数量、金額を入力する機能を用意しています。</p></article>
+          <article class="point"><div class="point-shot"><img src="img/products/shichifuku_fishery/point9.jpg" alt="仕切データ連携画面" width="331" height="239" loading="lazy"></div><div class="point-head"><span class="point-badge">POINT<b>9</b></span><h3>仕切データ連携</h3></div><p class="catch">市場から送られてくる仕切データを取り込む機能</p><p>市場から送られてくる仕切データを「七福神」へ取り込むことができます。仕切データを取り込むことによって入力の手間を省くことができます。</p></article>
+        </div>
+      </div>
+      <div class="points-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <!-- クラウド版 -->
+  <section id="cloud">
+    <div class="wrap">
+      <div class="sec-en">CLOUD</div>
+      <h2 class="sec-title">初期費用をおさえるなら<br>七福神 クラウド版</h2>
+      <div class="cloud-top">
+        <div class="cloud-what" data-reveal>
+          <h3>クラウドって何？</h3>
+          <p>データを保存する場所が自分のパソコンや携帯端末などではなく、インターネット上に保存する使い方、サービスのことです。</p>
+          <p>業務システム「七福神」を、現在設置中のパソコンでシステム利用し、データ入力、データ編集、データ保存、印刷などすることができます。</p>
+        </div>
+        <figure class="cloud-fig">
+          <svg id="cloud-svg" viewBox="0 0 520 345" role="img" aria-label="データセンターのサーバに、お客様のクライアントPCからインターネット経由で接続する構成図">
+            <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f9be0"/><stop offset="1" stop-color="#1f6fb8"/></linearGradient></defs>
+            <path class="c-line" pathLength="1" d="M200 150 L120 238" fill="none" stroke="#9fc3f0" stroke-width="3" stroke-dasharray="1"/>
+            <path class="c-line" pathLength="1" d="M320 150 L400 238" fill="none" stroke="#9fc3f0" stroke-width="3" stroke-dasharray="1"/>
+            <circle class="c-dot" r="6" fill="#e07b1a" cx="120" cy="238"/>
+            <circle class="c-dot" r="6" fill="#e07b1a" cx="400" cy="238"/>
+            <g class="c-cloud">
+              <path d="M150 150 a50 50 0 0 1 20-92 a70 70 0 0 1 130-18 a55 55 0 0 1 90 40 a45 45 0 0 1-10 70Z" fill="url(#cg)"/>
+              <rect x="236" y="44" width="48" height="68" rx="6" fill="#fff"/>
+              <rect x="244" y="56" width="32" height="5" rx="2" fill="#1f6fb8"/>
+              <rect x="244" y="68" width="32" height="5" rx="2" fill="#1f6fb8"/>
+              <circle cx="260" cy="96" r="5" fill="#1f6fb8"/>
+              <text x="260" y="136" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">データセンター</text>
+            </g>
+            <g class="c-pc"><circle cx="110" cy="268" r="46" fill="#eef3f8"/><rect x="80" y="246" width="60" height="38" rx="3" fill="#16203a"/><rect x="85" y="251" width="50" height="28" fill="#fff"/><text x="110" y="336" text-anchor="middle" font-size="14" font-weight="700" fill="#16203a">クライアントPC</text><rect x="102" y="284" width="16" height="8" fill="#16203a"/></g>
+            <g class="c-pc"><circle cx="410" cy="268" r="46" fill="#eef3f8"/><rect x="380" y="246" width="60" height="38" rx="3" fill="#16203a"/><rect x="385" y="251" width="50" height="28" fill="#fff"/><text x="410" y="336" text-anchor="middle" font-size="14" font-weight="700" fill="#16203a">クライアントPC</text><rect x="402" y="284" width="16" height="8" fill="#16203a"/></g>
+          </svg>
+        </figure>
+      </div>
+      <ul class="merits" data-merits>
+        <li class="merit"><h4>機器購入</h4><div class="badge gold">不要</div><p>サーバ、クライアントパソコンを購入しなくてよい為、初期費用がかかりません。メンテナンスコスト（サーバリプレイス等）が不要です。</p></li>
+        <li class="merit"><h4>災害時も</h4><div class="badge calm">安心</div><p>津波や火災・地震などの災害発生した場合でも、大切なデータがなくなる心配がありません。</p></li>
+        <li class="merit"><h4>プログラム更新</h4><div class="badge">常に<br>最新</div><p>プログラムを一元管理している為、常に最新のシステムを使用することが可能です。</p></li>
+        <li class="merit"><h4>サポート体制</h4><div class="badge calm">万全</div><p>サーバを西日本情報システムにて管理している為、即日迅速なサポート対応が可能です。</p></li>
+        <li class="merit"><h4>月々の費用</h4><div class="badge gold">利用料<br>のみ</div><p>月々にかかる費用は利用料のみの為、ランニングコストの大幅な削減が可能です。</p></li>
+      </ul>
+      <div class="compare">
+        <table>
+          <caption>運用比較</caption>
+          <thead><tr><th></th><th>一般的なシステム導入構成</th><th>「七福神」クラウド版</th></tr></thead>
+          <tbody data-rows>
+            <tr><th scope="row">サーバの購入</th><td>必要</td><td>不要</td></tr>
+            <tr><th scope="row">ソフトウェア</th><td>サーバで管理</td><td>データセンターで管理</td></tr>
+            <tr><th scope="row">データの管理</th><td>お客様で管理</td><td>データセンターで管理</td></tr>
+            <tr><th scope="row">ソフトウェア障害対応</th><td>現地対応及び遠隔対応</td><td>データセンターで対応</td></tr>
+            <tr><th scope="row">必要なランニングコスト</th><td>ハードウェア保守<br>ソフトウェア保守<br>サーバ稼働にかかる電気代</td><td>毎月の利用料</td></tr>
+            <tr><th scope="row">メンテナンスコスト<small>（※システム維持費用を除く）</small></th><td>サーバの入替<br>OS等のアップグレード</td><td>不要</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 安心サービス -->
+  <section id="safety" class="alt">
+    <div class="wrap">
+      <div class="sec-en">SAFETY</div>
+      <h2 class="sec-title">安心サービス：遠隔バックアップ<small style="font-size:15px;margin-left:8px">（オプション）</small></h2>
+      <p class="sec-lead">こんなことでお悩みではありませんか？</p>
+      <ul class="worry" data-checks>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>地震など災害発生時のデータ消失が心配。</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>システム障害によるデータ消失が心配。</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>データバックアップ設備に費用をかけられない。</li>
+        <li><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7"/></svg>データバックアップ運用に手間をかけられない。</li>
+      </ul>
+      <p class="guide" data-reveal>水産庁からの指導もあるように、<span>地震や津波から大切なデータを守れる体制</span>を求められています。</p>
+
+      <div class="backup-fig">
+        <svg id="backup-svg" viewBox="0 0 760 275" role="img" aria-label="お客様の業務データを暗号化し、インターネット経由で当社データセンターのバックアップサーバへ保存する流れの図">
+          <!-- お客様 -->
+          <g class="b-left">
+            <rect x="40" y="110" width="110" height="110" rx="4" fill="#cfe0f3"/>
+            <g fill="#fff"><rect x="54" y="124" width="18" height="16"/><rect x="86" y="124" width="18" height="16"/><rect x="118" y="124" width="18" height="16"/><rect x="54" y="152" width="18" height="16"/><rect x="86" y="152" width="18" height="16"/><rect x="118" y="152" width="18" height="16"/></g>
+            <rect x="84" y="186" width="22" height="34" fill="#8fb3dd"/>
+            <rect x="160" y="140" width="40" height="80" rx="4" fill="#3a4a66"/><rect x="167" y="152" width="26" height="4" fill="#9fc3f0"/><rect x="167" y="162" width="26" height="4" fill="#9fc3f0"/>
+            <text x="95" y="262" text-anchor="middle" font-size="15" font-weight="700" fill="#16203a">お客様</text>
+            <text x="180" y="238" text-anchor="middle" font-size="12" fill="#5b6680">業務データ</text>
+          </g>
+          <!-- インターネット -->
+          <g class="b-globe">
+            <circle cx="380" cy="170" r="52" fill="#1f7fc4"/>
+            <ellipse cx="380" cy="170" rx="22" ry="52" fill="none" stroke="#9fd0f5" stroke-width="2"/>
+            <path d="M328 170h104M336 144h88M336 196h88" stroke="#9fd0f5" stroke-width="2"/>
+            <text x="380" y="262" text-anchor="middle" font-size="15" font-weight="700" fill="#16203a">インターネット</text>
+          </g>
+          <!-- データセンター -->
+          <g class="b-right">
+            <rect class="b-dc" x="620" y="60" width="96" height="160" rx="4" fill="#9fc3f0"/>
+            <g fill="#fff" opacity=".8"><rect x="632" y="74" width="72" height="8"/><rect x="632" y="92" width="72" height="8"/><rect x="632" y="110" width="72" height="8"/><rect x="632" y="128" width="72" height="8"/><rect x="632" y="146" width="72" height="8"/><rect x="632" y="164" width="72" height="8"/></g>
+            <rect x="560" y="140" width="40" height="80" rx="4" fill="#3a4a66"/><rect x="567" y="152" width="26" height="4" fill="#9fc3f0"/><rect x="567" y="162" width="26" height="4" fill="#9fc3f0"/>
+            <text x="668" y="262" text-anchor="middle" font-size="15" font-weight="700" fill="#16203a">データセンター</text>
+            <text x="572" y="238" text-anchor="middle" font-size="12" fill="#5b6680">バックアップサーバ</text>
+          </g>
+          <path id="b-path" class="b-arc" pathLength="1" d="M200 150 Q380 10 560 150" fill="none" stroke="#e05a4a" stroke-width="4" stroke-dasharray="1"/>
+          <g id="b-packet" transform="translate(380 80)">
+            <rect x="-20" y="-22" width="40" height="34" rx="6" fill="#e8c547"/>
+            <path d="M-10 -22 v-8 a10 10 0 0 1 20 0 v8" fill="none" stroke="#a87800" stroke-width="4"/>
+            <circle cx="0" cy="-6" r="4" fill="#7a5800"/>
+            <text y="-40" text-anchor="middle" font-size="12" font-weight="700" fill="#b8282e">暗号化</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="backup-note">
+        <div data-reveal>
+          <p><b>暗号化したデータを遠隔地にバックアップ</b><br>お客様の大切な情報資産をネットワーク経由で当社データセンターに低コストで確実に保護いたします。</p>
+          <p style="margin-top:12px">大きな地震や津波などの災害時は、漁協内のバックアップだけでは大切なデータは守れません。VPN（バーチャル プライベート ネットワーク）という安全なネットワーク技術を利用し、「七福神」データをデータセンターへ格納します。</p>
+        </div>
+        <div class="dc" data-reveal><b>データセンターとは</b><br>建物全体が免震構造となっており、電源設備や空調管理、防火設備を設けている施設のことをいいます。<br>※費用などの詳細については、お問い合わせください。</div>
+      </div>
+
+      <ul class="svc" data-stagger>
+        <li>ネットワークの負荷を軽減する差分バックアップ</li>
+        <li>ファイルは送信前に自動的に暗号化</li>
+        <li>データ容量に応じた安心料金<small>月額5,000円からの定額料金で大切な情報資産をお預かりいたします。<br>※データの種類、量により料金が異なります。</small></li>
+      </ul>
+
+      <div class="support" data-reveal>
+        <div>
+          <h3>保守サポート</h3>
+          <p>皆様からのお問い合わせにも迅速に対応し、安心と安全をお届けします。ソフトウェアのトラブル時やシステムに対するご質問、ご要望は、サポートセンターへお問い合わせください。</p>
+        </div>
+        <div class="tel"><small>サポートセンター（フリーダイヤル）</small><a href="tel:0120670240">0120-670-240</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- オプション -->
+  <section id="options">
+    <div class="wrap">
+      <div class="sec-en">OPTIONS</div>
+      <h2 class="sec-title">オプション</h2>
+      <p class="sec-lead">現場の入力から情報発信まで、漁協業務をさらに広げるサブシステム・機能です。</p>
+      <div class="opt-grid" data-stagger>
+        <article class="opt"><p class="catch">現場からスピーディーな事務が始まる</p><h3>タブレット入力サブシステム</h3><ul><li>現場でセリ結果をデータ入力できます</li><li>入力時の確認がすぐにできます</li></ul></article>
+        <article class="opt"><p class="catch">様々な機関への情報伝達</p><h3>漁獲成績報告データ送信機能</h3><ul><li>漁獲成績報告に必要なデータを販売管理システムより抽出し国の漁獲報告システムへ送信します</li></ul></article>
+        <article class="opt"><p class="catch">特定水産動植物等の国内流通の適正化に対応する</p><h3>水産流通適正化対応機能</h3><ul><li>仲買人に漁獲番号をいち早く通達できます</li><li>生産者毎の届出番号の管理や取引履歴の検索ができます</li><li>タブレットを使った荷受入力により、現場での番号伝達が可能です</li></ul></article>
+        <article class="opt"><p class="catch">リアルタイムに仕切情報を発信</p><h3>仕切公開WEBシステム</h3><ul><li>仕切情報の公開をリアルタイムに</li><li>過去の情報閲覧が可能</li><li>統計情報をグラフで閲覧可能</li></ul></article>
+        <article class="opt"><p class="catch">知りたい情報で市場を活性化する</p><h3>市況情報公開サブシステム</h3><ul><li>正しい情報をタイムリーに関係者に伝える仕掛けを備えています</li></ul></article>
+        <article class="opt"><p class="catch">コスト削減と業務効率化を実現する</p><h3>FAX・メール自動配信サブシステム</h3><ul><li>ボタン一つで生産者、仲買人、買受人に配信できます</li></ul></article>
+        <article class="opt"><p class="catch">荷受をスピーディーに行う</p><h3>ハンディターミナルサブシステム</h3><ul><li>生産者が貼付したバーコードを読み取るだけで、登録処理が完了</li></ul></article>
+        <article class="opt"><p class="catch">設置場所を選ばない軽量端末</p><h3>簡易POSサブシステム</h3><ul><li>バーコードやQRコードを読み取るだけ</li><li>ほぼリアルタイムにデータを反映</li><li>その場でレシートを発行</li></ul></article>
+        <article class="opt"><p class="catch">使い慣れたオフコンの入力方式をさらに進化させた</p><h3>タッチパネル入力サブシステム</h3><ul><li>オフコンのブック型パネルの利点と、タッチパネルの利点を融合して、快適な入力を実現します</li></ul></article>
+      </div>
+      <p class="opt-note">導入実績が豊富で、ご要望に合わせた柔軟なカスタマイズが可能です。詳しくは製品PDFをご覧ください。</p>
+    </div>
+  </section>
+
+  <!-- 資料 -->
+  <section id="docs" class="alt">
+    <div class="wrap">
+      <div class="sec-en">DOCUMENTS</div>
+      <h2 class="sec-title">資料一覧</h2>
+      <ul class="docs" data-stagger>
+        <li><a href="https://www.n-js.co.jp/product/pdf/sichifukujin.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 34 40" aria-hidden="true"><path d="M2 2h22l8 8v28H2z" fill="#fff" stroke="#b8282e" stroke-width="2"/><text x="17" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="#b8282e">PDF</text></svg><span>七福神-漁協版 製品PDF<small>製品パンフレット</small></span></a></li>
+        <li><a href="https://www.n-js.co.jp/product/documents/Hitac.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 34 40" aria-hidden="true"><path d="M2 2h22l8 8v28H2z" fill="#fff" stroke="#b8282e" stroke-width="2"/><text x="17" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="#b8282e">PDF</text></svg><span>Case Study 山口県漁業協同組合様<small>日立、ＩＴ情報誌「はいたっく」2016年5月号より</small></span></a></li>
+        <li><a href="https://www.n-js.co.jp/product/documents/0918backupA4_000.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 34 40" aria-hidden="true"><path d="M2 2h22l8 8v28H2z" fill="#fff" stroke="#b8282e" stroke-width="2"/><text x="17" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="#b8282e">PDF</text></svg><span>遠隔バックアップサービス<small>サービス資料</small></span></a></li>
+      </ul>
+
+      <h3 style="margin-top:56px;font-size:18px">その他のパッケージ製品</h3>
+      <div class="related">
+        <a href="shichifuku_market.html"><img src="img/products/bnr_product_7fukujin_shijo.png" alt="七福神 市場版" width="220" height="50" loading="lazy"></a>
+        <a href="products.html#hephaistos"><img src="img/products/bnr_product_hephaistos.png" alt="Hephaistos" width="220" height="50" loading="lazy"></a>
+        <a href="products.html#edword"><img src="img/products/bnr_product_edword.png" alt="エドワード" width="220" height="50" loading="lazy"></a>
+        <a href="products.html#rakuraku"><img src="img/products/bnr_product_rakuraku.png" alt="楽々砕石" width="220" height="50" loading="lazy"></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div class="wrap">
+      <h2>七福神-漁協版についてのお問い合わせ</h2>
+      <p>資料請求やデモのご依頼も承ります。お気軽にご相談ください。</p>
+      <a href="#contact" class="btn">お問い合わせ・資料請求 <i>→</i></a>
+    </div>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="wrap foot-in">
+    <div class="foot-co">
+      <div class="logo"><img class="logo-mark" src="img/common/logo.webp" alt="" width="36" height="36"><span><small>株式会社</small>西日本情報システム</span></div>
+      <ul class="bases">
+        <li><b>東京本社</b>東京都品川区南大井6-19-6<br>TEL 03-5753-7555</li>
+        <li><b>西部本社</b>山口県山口市佐山産業団地南1200-13<br>TEL 083-988-0240</li>
+        <li><b>支店</b>関西／福岡／北陸</li>
+      </ul>
+    </div>
+    <div class="foot-nav">
+      <div><h4>ソリューション・製品</h4><ul><li><a href="solution.html">ソリューションサービス</a></li><li><a href="works.html">開発実績</a></li><li><a href="products.html#package">パッケージ製品</a></li></ul></div>
+      <div><h4>会社情報</h4><ul><li><a href="company.html#profile">会社概要</a></li><li><a href="company.html#bases">拠点一覧</a></li><li><a href="company.html#related">関連会社</a></li><li><a href="https://www.n-js.co.jp/privacy/" target="_blank" rel="noopener">個人情報の取扱い</a></li></ul></div>
+      <div><h4>ニュース</h4><ul><li><a href="index.html#news">お知らせ</a></li></ul></div>
+      <div><h4>採用情報</h4><ul><li><a href="recruit.html#fresh">新卒採用</a></li><li><a href="recruit.html#career">キャリア採用</a></li></ul></div>
+    </div>
+    <a href="#" class="foot-cta">お問い合わせ<br>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="7" width="24" height="18" rx="2"/><path d="M4 9l12 9 12-9"/></svg><br>
+      お問い合わせ・資料請求へ</a>
+  </div>
+  <div class="copy">© 2026 Nishinippon Information System Co., Ltd.（デモ）</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
+<script>
+/* ページ内リンクだけ滑らかにスクロール（動きを減らす設定なら即移動） */
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href').slice(1),t=id&&document.getElementById(id);
+  if(!t)return;
+  e.preventDefault();
+  t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  history.pushState(null,'','#'+id);
+}));
+const btn=document.querySelector('.menu-btn'),nav=document.getElementById('gnav');
+btn.addEventListener('click',()=>{const o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');btn.setAttribute('aria-expanded',false)}));
+
+/* ハブ図（中心＋放射状のノード）を描く。図はJSで組み立てるので、文字情報は aria-label と本文にも書いておく */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
+function hub(svg,center,nodes,r){
+  /* スマホでは図全体が縮むので、ラベルを大きめに描く（ponytail: 読み込み時の幅で決めるだけ。回転などで幅が変わっても描き直さない） */
+  const c=320,fs=innerWidth<=560?22:15,lh=fs*1.3,lines=el('g',{},svg),dots=el('g',{},svg),ng=el('g',{},svg);
+  nodes.forEach((label,i)=>{
+    const a=-Math.PI/2+i*2*Math.PI/nodes.length,x=c+r*Math.cos(a),y=c+r*Math.sin(a);
+    el('line',{x1:c,y1:c,x2:x,y2:y,pathLength:1},lines);
+    el('circle',{class:'dot',r:5,cx:x,cy:y,'data-x':x,'data-y':y,opacity:0},dots);
+    const rows=label.split('\n'),w=Math.max(...rows.map(s=>s.length))*fs+24,h=rows.length*lh+14;
+    const g=el('g',{class:'hub-node'},el('g',{transform:`translate(${x} ${y})`},ng));
+    el('rect',{x:-w/2,y:-h/2,width:w,height:h,rx:Math.min(h/2,20)},g);
+    rows.forEach((s,j)=>{el('text',{'text-anchor':'middle','dominant-baseline':'central','font-size':fs,y:(j-(rows.length-1)/2)*lh},g).textContent=s});
+  });
+  const cg=el('g',{class:'hub-center'},el('g',{transform:`translate(${c} ${c})`},svg));
+  el('circle',{class:'ring',r:104},cg);
+  el('circle',{r:92},cg);
+  center.forEach(([s,cls],i)=>{el('text',{'text-anchor':'middle','dominant-baseline':'central',y:(i-(center.length-1)/2)*30,class:cls||''},cg).textContent=s});
+}
+hub(document.getElementById('hub-biz'),[['組合員'],['取引先・会計'],['債権']],
+  ['販売','購買','買取販売','製氷','冷凍','利用','保管','加工','海苔','カキ','煮干'],235);
+hub(document.getElementById('hub-data'),[['漁協業務システム'],['七福神','big']],
+  ['直売所','ガソリン\nスタンド','他港水揚\nデータ','市況データ\n開示','全国漁信\nオンライン\nセンター','Excel出力','統計データ\n抽出','県、市町村、\n水産センター等','TAC\n（漁獲可能量管理）','LPガス'],240);
+
+/* システム一覧の絞り込み（動きを減らす設定やGSAP未読込時は即時切り替え） */
+const grid=document.getElementById('sys-grid'),items=[...grid.children];
+const calm=()=>!window.Flip||matchMedia('(prefers-reduced-motion: reduce)').matches;
+let flipping;
+document.querySelectorAll('.filter button').forEach(b=>b.addEventListener('click',()=>{
+  const f=b.dataset.filter;
+  document.querySelectorAll('.filter button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  /* 前の絞り込みアニメが途中なら先に終わらせる（途中の位置や透明度を「元の状態」として記録しないように） */
+  if(flipping)flipping.progress(1);
+  const state=calm()?null:Flip.getState(items);
+  items.forEach(li=>li.classList.toggle('is-hidden',f!=='all'&&li.dataset.group!==f));
+  /* 一覧の高さが変わるので、下にある横スクロールのピン位置をすぐ測り直す */
+  if(window.ScrollTrigger)ScrollTrigger.refresh();
+  /* absolute にするのは消えるカードだけ。全部を absolute にすると、アニメ中に一覧の高さが0になり、下のセクションが跳ねて横スクロールのピン位置もずれる */
+  /* 出入りは opacity だけ動かす（transform は Flip が位置の移動に使うので、同じ要素で取り合うと途中の値が残る） */
+  if(state)flipping=Flip.from(state,{duration:.55,ease:'power2.inOut',absoluteOnLeave:true,
+    onEnter:els=>gsap.fromTo(els,{opacity:0},{opacity:1,duration:.4}),
+    onLeave:els=>gsap.to(els,{opacity:0,duration:.3})});
+}));
+
+/* モーション。GSAPが読めない・動きを減らす設定のときは何もせず、静止した完成状態のまま見せる */
+if(window.gsap){
+gsap.registerPlugin(ScrollTrigger,Flip,MotionPathPlugin);
+const mm=gsap.matchMedia();
+mm.add({motion:'(prefers-reduced-motion: no-preference)',wide:'(min-width:961px)'},ctx=>{
+  const {motion,wide}=ctx.conditions;
+  if(!motion)return;
+  const st=(trigger,start='top 82%')=>({trigger,start,once:true});
+  /* 出現 → 移動 → 消える を1サイクルにした粒のループ */
+  const drift=(t,from,to,dur,delay,rd=0)=>gsap.timeline({repeat:-1,repeatDelay:rd,delay})
+    .fromTo(t,from,{...to,duration:dur,ease:'sine.inOut'},0)
+    .fromTo(t,{opacity:0},{opacity:1,duration:dur*.2},0)
+    .to(t,{opacity:0,duration:dur*.2},dur*.8);
+
+  /* ヒーロー：タイトル1文字ずつ → 周辺テキスト → 宝船が揺れる・波が流れる・泡が上る */
+  const h=document.querySelector('.split');h.setAttribute('aria-label',h.textContent);
+  h.innerHTML=[...h.textContent].map(c=>`<span class="ch" aria-hidden="true">${c}</span>`).join('');
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .from('.hero-boat',{y:60,opacity:0,scale:.92,duration:1.2})
+    .from('.split .ch',{yPercent:110,opacity:0,rotate:8,stagger:.12,duration:.8},'-=.8')
+    .from('[data-hero]',{y:24,opacity:0,stagger:.1,duration:.7},'-=.4');
+  gsap.to('.hero-boat',{y:-12,rotation:1.4,duration:3.2,ease:'sine.inOut',yoyo:true,repeat:-1,delay:1.2});
+  [['.wave-back',38],['.wave-mid',26],['.wave-front',18]].forEach(([s,d])=>gsap.to(s,{xPercent:-50,duration:d,ease:'none',repeat:-1}));
+  const vis=document.querySelector('.hero-visual');
+  for(let i=0;i<7;i++){
+    const b=document.createElement('span'),z=gsap.utils.random(8,20);b.className='bubble';
+    Object.assign(b.style,{width:z+'px',height:z+'px',left:gsap.utils.random(5,95)+'%',bottom:'8%'});vis.appendChild(b);
+    drift(b,{y:0},{y:-gsap.utils.random(160,320)},gsap.utils.random(4,7),i*.8);
+  }
+  gsap.to('.hero-visual',{yPercent:12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+  /* 汎用：ふわっと表示／子要素を順番に表示 */
+  gsap.utils.toArray('[data-reveal]').forEach(e=>gsap.from(e,{y:36,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:st(e)}));
+  gsap.utils.toArray('[data-stagger]').forEach(e=>gsap.from(e.children,{y:30,opacity:0,duration:.7,stagger:.09,ease:'power3.out',scrollTrigger:st(e)}));
+
+  /* 数字のカウントアップ */
+  gsap.utils.toArray('[data-count]').forEach(e=>{
+    const o={v:0};e.textContent='0';
+    gsap.to(o,{v:+e.dataset.count,duration:1.8,ease:'power2.out',scrollTrigger:st(e,'top 90%'),onUpdate:()=>e.textContent=Math.round(o.v)});
+  });
+
+  /* チェックリスト：枠が並んでからチェックが入る */
+  gsap.utils.toArray('[data-checks]').forEach(list=>{
+    gsap.timeline({scrollTrigger:st(list)})
+      .from(list.children,{y:20,opacity:0,stagger:.06,duration:.5})
+      .from(list.querySelectorAll('.chk path'),{strokeDashoffset:1,stagger:.08,duration:.35,ease:'power1.out'},'-=.3');
+  });
+
+  /* ハブ図：線が伸びる → ノードが弾む → データの粒が流れ続ける */
+  [['#hub-biz',1],['#hub-data',-1]].forEach(([id,dir])=>{
+    const svg=document.querySelector(id),dots=svg.querySelectorAll('.dot');
+    const tl=gsap.timeline({scrollTrigger:st(svg,'top 75%')})
+      .from(svg.querySelector('.hub-center'),{scale:0,transformOrigin:'50% 50%',duration:.7,ease:'back.out(1.7)'})
+      .from(svg.querySelectorAll('line'),{strokeDashoffset:1,duration:.6,stagger:.05},'-=.2')
+      .from(svg.querySelectorAll('.hub-node'),{scale:0,opacity:0,transformOrigin:'50% 50%',duration:.5,stagger:.05,ease:'back.out(2)'},'-=.6');
+    tl.add(()=>{
+      gsap.to(svg.querySelector('.ring'),{rotation:360,transformOrigin:'50% 50%',duration:30,ease:'none',repeat:-1});
+      dots.forEach((d,i)=>{
+        const out={cx:+d.dataset.x,cy:+d.dataset.y},inn={cx:320,cy:320},inward=dir>0||i%2===0;
+        drift(d,{attr:inward?out:inn},{attr:inward?inn:out},1.8,i*.3,1);
+      });
+    });
+  });
+
+  /* ポイント：PC幅では横スクロールで1枚ずつ見せる */
+  const sec=document.getElementById('points'),track=sec.querySelector('.points-track');
+  if(wide){
+    sec.classList.add('is-h');
+    const dist=()=>Math.max(0,track.scrollWidth-sec.querySelector('.points-view').clientWidth);
+    const pin={trigger:sec,start:'top 73px',end:()=>'+='+dist(),invalidateOnRefresh:true};
+    gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{...pin,pin:true,scrub:.8}});
+    gsap.to('.points-bar span',{scaleX:1,ease:'none',scrollTrigger:{...pin,scrub:true}});
+  }else{
+    gsap.utils.toArray('.point').forEach(p=>gsap.from(p,{y:40,opacity:0,duration:.7,scrollTrigger:st(p,'top 88%')}));
+  }
+
+  /* クラウド構成図：雲 → PC → 回線 → データが雲とPCを往復 */
+  const cs='#cloud-svg';
+  gsap.timeline({scrollTrigger:st(cs,'top 78%')})
+    .from(cs+' .c-cloud',{y:-30,opacity:0,duration:.8,ease:'power3.out'})
+    .from(cs+' .c-pc',{scale:0,transformOrigin:'50% 50%',stagger:.15,duration:.5,ease:'back.out(2)'},'-=.3')
+    .from(cs+' .c-line',{strokeDashoffset:1,stagger:.1,duration:.5})
+    .add(()=>{
+      gsap.to(cs+' .c-cloud',{y:-6,duration:2.4,yoyo:true,repeat:-1,ease:'sine.inOut'});
+      document.querySelectorAll(cs+' .c-dot').forEach((d,i)=>gsap.fromTo(d,{attr:{cx:[120,400][i],cy:238}},
+        {attr:{cx:[200,320][i],cy:150},duration:1.4,yoyo:true,repeat:-1,ease:'sine.inOut',delay:i*.7}));
+    });
+
+  /* メリット：カード表示とバッジのポップ */
+  const ml=document.querySelector('[data-merits]');
+  gsap.timeline({scrollTrigger:st(ml)})
+    .from(ml.children,{y:30,opacity:0,stagger:.1,duration:.6})
+    .from(ml.querySelectorAll('.badge'),{scale:0,rotation:-25,stagger:.1,duration:.6,ease:'back.out(2.2)'},'-=.5');
+
+  /* 運用比較：行が左右から合流 */
+  const rows=document.querySelectorAll('[data-rows] tr');
+  gsap.timeline({scrollTrigger:st('.compare')})
+    .from([...rows].map(r=>r.children[0]),{x:-30,opacity:0,stagger:.08,duration:.5})
+    .from([...rows].map(r=>r.children[2]),{x:30,opacity:0,stagger:.08,duration:.5},'<.15')
+    .from([...rows].map(r=>r.children[1]),{opacity:0,stagger:.08,duration:.5},'<');
+
+  /* 遠隔バックアップ：拠点 → 経路 → 暗号化パケットが運ばれて、届くとデータセンターが光る */
+  const bs='#backup-svg';
+  gsap.set('#b-packet',{opacity:0});
+  gsap.timeline({scrollTrigger:st(bs,'top 78%')})
+    .from([bs+' .b-left',bs+' .b-globe',bs+' .b-right'],{y:30,opacity:0,stagger:.15,duration:.6,ease:'power3.out'})
+    .from(bs+' .b-arc',{strokeDashoffset:1,duration:.9,ease:'power2.inOut'})
+    .add(()=>{
+      gsap.to(bs+' .b-globe',{rotation:360,transformOrigin:'50% 50%',duration:24,ease:'none',repeat:-1});
+      gsap.timeline({repeat:-1,repeatDelay:.6})
+        .set('#b-packet',{opacity:1})
+        .to('#b-packet',{duration:2.2,ease:'power1.inOut',motionPath:{path:'#b-path',align:'#b-path',alignOrigin:[.5,.5]}})
+        .to('#b-packet',{opacity:0,duration:.2})
+        .fromTo(bs+' .b-dc',{fill:'#9fc3f0'},{fill:'#e8c547',duration:.25,yoyo:true,repeat:1},'<');
+    });
+  /* 画面幅が切り替わったら作り直すので、追加した要素とクラスを戻す */
+  return()=>{sec.classList.remove('is-h');vis.querySelectorAll('.bubble').forEach(b=>b.remove())};
+});
+}
+</script>
+</body>
+</html>
