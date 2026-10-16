@@ -258,6 +258,14 @@ section{padding:96px 0;scroll-margin-top:72px;position:relative}
 .opt li::before{content:"›";color:var(--sea);font-weight:700;margin-right:.5em}
 .opt-note{margin-top:20px;font-size:13px;color:var(--muted);text-align:center}
 
+/* ── 紹介動画 ── */
+.movie{background:linear-gradient(160deg,var(--navy),var(--blue-deep));color:#fff}
+.movie .sec-en{color:#9fc3f0}
+.movie .sec-lead{color:rgba(255,255,255,.8)}
+.movie-frame{max-width:960px;margin:36px auto 0}
+.movie-frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0a1f3f;border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,.35)}
+.movie-frame figcaption{margin-top:12px;text-align:center;font-size:12px;color:rgba(255,255,255,.7)}
+
 /* ── 資料 ── */
 .docs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none;margin-top:32px}
 .docs a{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;font-weight:700;font-size:14px;line-height:1.6;height:100%;transition:border-color .2s}
@@ -395,6 +403,7 @@ footer{background:#f6f8fc;padding:64px 0 0;font-size:13px}
         <li><a href="#cloud">クラウド版</a></li>
         <li><a href="#safety">安心サービス</a></li>
         <li><a href="#options">オプション</a></li>
+        <li><a href="#movie">紹介動画</a></li>
         <li><a href="#docs">資料</a></li>
       </ul>
     </div>
@@ -722,6 +731,24 @@ footer{background:#f6f8fc;padding:64px 0 0;font-size:13px}
         <article class="opt"><p class="catch">使い慣れたオフコンの入力方式をさらに進化させた</p><h3>タッチパネル入力サブシステム</h3><ul><li>オフコンのブック型パネルの利点と、タッチパネルの利点を融合して、快適な入力を実現します</li></ul></article>
       </div>
       <p class="opt-note">導入実績が豊富で、ご要望に合わせた柔軟なカスタマイズが可能です。詳しくは製品PDFをご覧ください。</p>
+    </div>
+  </section>
+
+  <!-- 紹介動画 -->
+  <section id="movie" class="movie">
+    <div class="wrap">
+      <div class="center">
+        <div class="sec-en">MOVIE</div>
+        <h2 class="sec-title">紹介動画</h2>
+        <p class="sec-lead">七福神-漁協版を約60秒でご紹介します。</p>
+      </div>
+      <figure class="movie-frame" data-reveal>
+        <video controls playsinline preload="none" poster="img/products/shichifuku_fishery/promo_poster.jpg" width="1920" height="1080" aria-label="七福神-漁協版 紹介動画（約60秒・音声あり）">
+          <source src="img/products/shichifuku_fishery/promo.mp4" type="video/mp4">
+          お使いのブラウザでは動画を再生できません。
+        </video>
+        <figcaption>約60秒・音声あり　ナレーション：AI音声（ElevenLabs）</figcaption>
+      </figure>
     </div>
   </section>
 
